@@ -21,36 +21,29 @@ class BiquadraticSolver:
             print("Дискриминант слишком большой.")
             return []
 
-        # Use formula
         sqrt_d = math.sqrt(d)
         x1 = (-self.b + sqrt_d) / (2*self.a)
         x2 = (-self.b - sqrt_d) / (2*self.a)
 
-        # Get roots result
         roots = [x1]
         if x1 != x2:
             roots = [x1, x2]
 
         return roots
 
-# Helper function
 def get_coefficient(name: str, args: [str], index: int):
     while True:
         try:
-            # Try to retrieve coefficient from args
             if len(args) > index:
                 return float(args[index])
 
-            # or ask for it
             return float(input(f"Введите коэффициент {name}: "))
         except ValueError:
             print(f"Некорректное значение для {name}, попробуйте снова.")
-            # Clear argument value for next try if providede
             if len(args) > index:
                 args[index] = None
 
 def main():
-    # Get coefficients
     args = sys.argv
     a = get_coefficient("A", args, 1)
     if a == 0:
@@ -60,9 +53,7 @@ def main():
     b = get_coefficient("B", args, 2)
     c = get_coefficient("C", args, 3)
 
-    # Initialize class
     solver = BiquadraticSolver(a, b, c)
-    # solve
     roots = solver.solve()
     if roots:
         print("Действительные корни:", roots)
